@@ -44,14 +44,33 @@ export const education = [
 
     academicPerformance: {
       title: "Academic Performance",
+      overallGPA: 3.28,
       semesters: [
-        { name: "Semester 1", gpa: 3.6 },
-        { name: "Semester 2", gpa: 3.7 },
-        { name: "Semester 3", gpa: 3.8 },
-        { name: "Semester 4", gpa: 3.9 },
+        { name: "Year 1", gpa: 3.31 },
+        { name: "Year 2", gpa: 3.25 },
       ],
     },
-  }
+  },
+
+  {
+    degree: "Foundation Certificate in Information Technology",
+    school: "SLIIT City Uni",
+    year: "2023",
+    gpa: null,
+    highlights: [
+      "Gained a strong foundation in computer science and software engineering principles",
+      "Knowledgeable in programming languages, data structures, algorithms",
+      "Knowledgeable in project management and software development methodologies",
+    ],
+    academicPerformance: {
+      title: "Academic Performance",
+      overallGPA: 3.58,
+      semesters: [
+        { name: "Semester 1", gpa: 3.56 },
+        { name: "Semester 2", gpa: 3.60 },
+      ],
+    },
+  },
 ];
 
 //  SKILLS

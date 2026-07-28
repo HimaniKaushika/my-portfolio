@@ -115,6 +115,34 @@ export default function About() {
                   {edu.gpa && (
                     <p className="text-xs text-slate-500 dark:text-slate-500 mb-2">GPA: {edu.gpa}</p>
                   )}
+                  {edu.academicPerformance && (
+                    <div className="mt-5 mb-4">
+                      <p className="text-sm font-semibold text-slate-700 dark:text-slate-300 mb-3 flex items-center gap-1.5">
+                        <Sparkles size={16} className="text-indigo-800" />
+                        {edu.academicPerformance.title}
+                      </p>
+                      <div className="space-y-2.5 mb-4">
+                        {edu.academicPerformance.semesters.map((sem) => (
+                          <div key={sem.name}>
+                            <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+                              <span>{sem.name}</span>
+                              <span className="font-semibold text-indigo-600 dark:text-indigo-400">{sem.gpa}</span>
+                            </div>
+                            <div className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-full overflow-hidden">
+                              <div
+                                className="h-full bg-gradient-to-r from-indigo-500 to-violet-500 rounded-full progress-bar"
+                                style={{ width: `${(sem.gpa / 4) * 100}%` }}
+                              />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-indigo-500 to-violet-500 text-white text-xs font-semibold shadow-sm">
+                        <GraduationCap size={14} />
+                        Overall GPA: {edu.academicPerformance.overallGPA} / 4.0
+                      </div>
+                    </div>
+                  )}
                   <ul className="space-y-1">
                     {edu.highlights.map((h) => (
                       <li key={h} className="text-sm text-slate-500 dark:text-slate-400 flex items-start gap-2">

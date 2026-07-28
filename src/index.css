@@ -31,8 +31,10 @@ html {
 }
 
 .progress-bar {
+  width: 0%;
   transition: width 1s ease-in-out;
 }
-.card:hover {
-  transform: translateY(-5px);
+
+.progress-bar.animate {
+  width: 100%;
 }
