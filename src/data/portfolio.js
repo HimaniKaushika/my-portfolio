@@ -102,26 +102,26 @@ export const education = [
 export const technicalSkills = [
   { group: 'Mobile', items: ['Flutter', 'Dart', 'Android', 'Responsive UI'] },
   { group: 'Web', items: ['HTML & CSS','PHP', 'JavaScript','React', 'REST APIs'] },
-  { group: 'Back end & Database', items: ['SQL', 'MySQL', 'Firebase', 'Node.js', 'MongoDB'] },
-  { group: 'IoT & hardware', items: ['ESP32', 'Arduino', 'Raspberry Pi', 'MQTT', 'GPS modules'] },
-  { group: 'AI & data', items: ['Python', 'Machine learning', 'TensorFlow'] },
-  { group: 'Tools', items: ['Git & GitHub', 'Figma', 'VS Code', 'Android Studio'] },
+  { group: 'Back end & Database', items: ['Node.js','SQL', 'MySQL', 'Firebase',  'MongoDB'] },
+  { group: 'IoT & hardware', items: ['ESP32', 'Arduino', 'MQTT', 'GPS modules'] },
+  { group: 'AI & data', items: ['Python', 'Machine learning', 'Scikit-learn','Data Analysis','Model Evaluation'] },
+  { group: 'Tools', items: ['Git & GitHub', 'Figma', 'VS Code', 'Android Studio', 'Trello', 'Jira'] },
 ]
 
 export const softSkills = [
   {
     name: 'Problem solving',
-    text: 'Breaking a vague problem into small, testable steps and working through them calmly.',
+    text: 'Breaking a big problem into small, testable steps and working through them calmly.',
     icon: 'puzzle',
   },
   {
-    name: 'Teamwork',
-    text: 'Comfortable in group projects: sharing work fairly, reviewing code and keeping everyone in sync.',
+    name: 'Collaboration',
+    text: 'Comfortable working independently and as part of a team, taking responsibility and sharing ideas to achieve common goals.',
     icon: 'team',
   },
   {
     name: 'Communication',
-    text: 'Explaining technical ideas clearly to lecturers, teammates and non-technical users.',
+    text: 'Able to communicate ideas clearly, listen to others, share updates and work effectively with different people.',
     icon: 'chat',
   },
   {
@@ -136,7 +136,7 @@ export const softSkills = [
   },
   {
     name: 'Attention to detail',
-    text: 'Testing edge cases and polishing the small things users actually notice.',
+    text: 'Taking care with tasks, checking my work, and making sure things are done correctly.',
     icon: 'focus',
   },
 ]
