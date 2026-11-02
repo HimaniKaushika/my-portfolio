@@ -34,7 +34,7 @@ export default function About() {
               </div>
 
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed mb-4">
-                I am currently pursuing a BSc (Hons) in Computer Science at SLIIT City University, affiliated with the University of Bedfordshire, UK. 
+                I am currently pursuing a BSc (Hons) in Computer Science at SLIIT City UNIversity, affiliated with the University of Bedfordshire, UK. 
                 My main areas of interest include mobile and web application development, cloud-based solutions, IoT systems, and Machine Learning.
               </p>
               <p className="text-slate-600 dark:text-slate-400 leading-relaxed">

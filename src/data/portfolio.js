@@ -9,7 +9,7 @@ export const profile = {
   location: 'Sri Lanka',
   email: 'h.kaushi49@gmail.com',
   // TODO: replace with your real number
-  phone: '+94 71 234 5678',
+  phone: '+94 752048302',
   github: 'https://github.com/himanikaushika',
   linkedin: 'https://linkedin.com/in/himanikaushika',
   // Optional: put your CV in /public and set this to '/Himani-Kaushika-CV.pdf'
@@ -45,9 +45,8 @@ export const about = {
   ],
   facts: [
     { label: 'Studied', value: 'BSc (Hons) Computer Science' },
-    { label: 'University', value: 'University of Bedfordshire, UK\nDelivered through SLIIT City UNI' },
+    { label: 'University', value: 'University of Bedfordshire\nDelivered through SLIIT City UNI' },
     { label: 'Technical Interests', value: 'Software Development, Flutter, IoT, AI/ML, Quality Assurance' },
-    { label: 'Experience', value: '3+ years coding, 10+ projects' },
     { label: 'Based in', value: 'Sri Lanka' },
   ],
 }
@@ -68,7 +67,7 @@ export const education = [
   },
   {
     degree: 'Higher Diploma in Information Technology',
-    school: 'SLIIT City Uni',
+    school: 'SLIIT City UNI',
     period: '2024 – 2025',
     current: true,
     points: [
@@ -80,7 +79,7 @@ export const education = [
   },
   {
     degree: 'Foundation Certificate in Information Technology',
-    school: 'SLIIT City Uni',
+    school: 'SLIIT City UNI',
     period: '2023',
     current: true,
     points: [
@@ -144,9 +143,8 @@ export const softSkills = [
 // Add a `link` (GitHub repo or live demo) to show a button on the card.
 export const projects = [
   {
-    title: 'GuardianSense',
+    title: 'GuardianSense - An IoT-based intelligent multi-feature system for child safety monitoring.',
     featured: true,
-    // Screenshots live in public/projects/<project>/ and are served from the site root.
     images: [
       {
         src: '/projects/guardiansense/pic1.png',
@@ -172,33 +170,67 @@ export const projects = [
       'The system spans five layers: embedded firmware, a Node.js API with real-time sockets, Firebase for storage and auth, the Flutter mobile client, and a Next.js admin console, all designed so that the AI advises and the parent always decides.',
     ],
     highlights: [
-      'ESP32 wristband streams location to the cloud in real time',
+      'Connects an IoT-based smart wearable wristband with a parent mobile app',
       'Parents get instant alerts when a child leaves a safe zone',
-      'Machine learning suggests safe zones from movement patterns and produces a weekly safety score',
+      'One-touch SOS button sends an emergency alert straight to every guardian',
+      'Live map view shows the child’s current location and movement history',
+      'CareRing lets parents invite co-parent, daycare owner or any person as trusted caregivers with limited access to the child’s location and alerts',
+      'Machine learning models suggests safe zones from movement patterns and produces a weekly safety score'
     ],
     tags: ['Flutter', 'ESP32', 'Node.js', 'Firebase', 'Python', 'ML'],
     link: '',
   },
   {
-    title: 'AgroConnect',
-    // Add screenshots to public/projects/agroconnect/ and list them here.
-    images: [],
+    title: 'ImpoExpo Connect - A Web-based B2B trade platform for import-export operations.',
+    
+    images: [
+      {
+        src: '/projects/impoexpo/homepage.png',
+        alt: 'ImpoExpo Connect Homepage',
+      },
+      {
+        src: '/projects/impoexpo/admindashboard.png',
+        alt: 'ImpoExpo Admin Dashboard',
+      },
+      {
+        src: '/projects/impoexpo/buyermanagement.png',
+        alt: 'ImpoExpo Connect Buyer Dashboard',
+      },
+      {
+        src: '/projects/impoexpo/ordermanagement.png',
+        alt: 'ImpoExpo Connect Orders',
+      },
+      {
+        src: '/projects/impoexpo/payments.png',
+        alt: 'ImpoExpo Connect Payments',
+      },
+      {
+        src: '/projects/impoexpo/reportgeneration.png',
+        alt: 'ImpoExpo Connect Report Generation',
+      },
+      {
+        src: '/projects/impoexpo/notifications.png',
+        alt: 'ImpoExpo Connect Notifications',
+      },
+    ],
     kind: 'Web platform',
     description: [
-      'Connects farmers directly with buyers, with live market prices, simple inventory management and data-driven pricing insights.',
+      'ImpoExpo Connect is a web-based B2B trade platform developed for Makgrow Impex (Pvt) Ltd, which is an Import Export Company. to streamline import and export operations by improving communication and coordination between buyers and suppliers. The platform provides features for managing products, inventory, buyer requests, quotations, orders, invoices, payments, and deliveries. It also incorporates an AI-powered Business Assistant to support users with business-related queries and improve decision-making.',
+      'This was a group university project developed using Agile project management methodologies. I contributed to the project as a Software Developer and Quality Manager, participating in both the development and quality assurance aspects of the platform.'
     ],
-    tags: ['React', 'Node.js', 'Firebase', 'REST API'],
+    tags: ['React', 'Node.js', 'Firebase', 'REST API', 'Groq API ', 'AI'],
     link: '',
   },
+
   {
-    title: 'Smart Home Hub',
-    // Add screenshots to public/projects/smart-home-hub/ and list them here.
+    title: 'TileTwist - A web-based puzzle game.',
+
     images: [],
-    kind: 'IoT dashboard',
+    kind: 'A web-based puzzle game',
     description: [
-      'A home automation dashboard with live sensor readings, energy usage analytics and voice-controlled devices from a mobile app.',
+      'Tile Twist is an interactive mobile puzzle game designed and developed to challenge players problem-solving skills through engaging tile-based puzzles. The application features an intuitive dashboard, interactive gameplay, interactive leaderboard with real-time updates and avatar display, and dedicated success and failure screens to provide feedback based on players performance. It offers an engaging gaming experience while encouraging logical thinking, concentration, and strategic decision-making.'
     ],
-    tags: ['Flutter', 'ESP32', 'MQTT', 'IoT'],
+    tags: ['HTML', 'PHP', 'JavaScript', 'Tailwind CSS', 'MySQL', 'Heart Game API'],
     link: '',
   },
 ]

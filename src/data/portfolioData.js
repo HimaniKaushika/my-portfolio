@@ -20,7 +20,7 @@ export const personal = {
 export const education = [
   {
     degree: "B.Sc. (Hons) in Computer Science",
-    school: "SLIIT City Uni affiliated with the University of Bedfordshire",
+    school: "SLIIT City UNI affiliated with the University of Bedfordshire",
     year: "2026 - 2027",
     gpa: "-",
     highlights: [
@@ -30,7 +30,7 @@ export const education = [
   },
   {
     degree: "Higher National Diploma in Computer Science and Software Engineering",
-    school: "SLIIT City Uni",
+    school: "SLIIT City UNI",
     year: "2024-2025",
     gpa: null,
 
@@ -54,7 +54,7 @@ export const education = [
 
   {
     degree: "Foundation Certificate in Information Technology",
-    school: "SLIIT City Uni",
+    school: "SLIIT City UNI",
     year: "2023",
     gpa: null,
     highlights: [
