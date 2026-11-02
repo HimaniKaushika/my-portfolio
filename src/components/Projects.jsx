@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react'
+import { useCallback, useEffect, useId, useRef, useState } from 'react'
 import { projects, profile } from '../data/portfolio.js'
 import { Icon, GitHubIcon } from './Icons.jsx'
 
@@ -42,26 +42,166 @@ function initials(title) {
     .toUpperCase()
 }
 
-function ProjectMedia({ project, index }) {
+const GALLERY_INTERVAL = 2000
+
+function normalizeImages(project) {
+  if (Array.isArray(project.images) && project.images.length > 0) {
+    return project.images.map((img) =>
+      typeof img === 'string' ? { src: img, alt: project.title } : img
+    )
+  }
   if (project.image) {
+    return [{ src: project.image, alt: project.imageAlt || project.title }]
+  }
+  return []
+}
+
+function usePrefersReducedMotion() {
+  const [reduced, setReduced] = useState(
+    () =>
+      typeof window !== 'undefined' &&
+      !!window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+  )
+
+  useEffect(() => {
+    const query = window.matchMedia?.('(prefers-reduced-motion: reduce)')
+    if (!query) return
+    const onChange = (event) => setReduced(event.matches)
+    query.addEventListener?.('change', onChange)
+    return () => query.removeEventListener?.('change', onChange)
+  }, [])
+
+  return reduced
+}
+
+function ProjectGallery({ project, active }) {
+  const images = normalizeImages(project)
+  const count = images.length
+  const [index, setIndex] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const reducedMotion = usePrefersReducedMotion()
+
+  useEffect(() => {
+    if (!active || paused || hovered || focused || reducedMotion || count < 2) return
+
+    const id = window.setInterval(() => {
+      if (!document.hidden) setIndex((current) => (current + 1) % count)
+    }, GALLERY_INTERVAL)
+
+    return () => window.clearInterval(id)
+  }, [active, paused, hovered, focused, reducedMotion, count])
+
+  if (count === 0) {
+    if (project.title === 'GuardianSense') return <GeofenceMap />
     return (
-      <img
-        className="projects-slider__image"
-        src={project.image}
-        alt={project.imageAlt || project.title}
-        loading={index === 0 ? 'eager' : 'lazy'}
-        decoding="async"
-      />
+      <div className="projects-slider__placeholder" aria-hidden="true">
+        <span>{initials(project.title)}</span>
+      </div>
     )
   }
 
-  if (project.title === 'GuardianSense') {
-    return <GeofenceMap />
-  }
+  return (
+    <div
+      className="project-gallery"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
+      }}
+    >
+      {images.map((image, i) => (
+        <div
+          key={`${image.src}-${i}`}
+          className={`project-gallery__layer${i === index ? ' is-active' : ''}`}
+          aria-hidden={i !== index}
+          style={{ '--img': `url("${image.src}")` }}
+        >
+          <img
+            src={image.src}
+            alt={image.alt || project.title}
+            loading={i === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+          />
+        </div>
+      ))}
+
+      {count > 1 && (
+        <>
+          <button
+            type="button"
+            className="project-gallery__pause"
+            onClick={() => setPaused((value) => !value)}
+            onPointerDown={(event) => event.stopPropagation()}
+            aria-label={paused ? 'Play slideshow' : 'Pause slideshow'}
+            aria-pressed={paused}
+          >
+            <Icon name={paused ? 'play' : 'pause'} size={16} />
+          </button>
+
+          <div className="project-gallery__dots" role="group" aria-label={`${project.title} images`}>
+            {images.map((image, i) => (
+              <button
+                key={`${image.src}-dot-${i}`}
+                type="button"
+                className={`project-gallery__dot${i === index ? ' is-active' : ''}`}
+                onClick={() => setIndex(i)}
+                onPointerDown={(event) => event.stopPropagation()}
+                aria-label={`Show image ${i + 1} of ${count}: ${image.alt || project.title}`}
+                aria-current={i === index ? 'true' : undefined}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
+}
+
+function ProjectDescription({ project }) {
+  const paragraphs = Array.isArray(project.description)
+    ? project.description.filter(Boolean)
+    : [project.summary].filter(Boolean)
+  const canExpand = paragraphs.length > 1
+  const [expanded, setExpanded] = useState(false)
+  const panelId = useId()
+
+  if (paragraphs.length === 0) return null
 
   return (
-    <div className="projects-slider__placeholder" aria-hidden="true">
-      <span>{initials(project.title)}</span>
+    <div className="project-description">
+      <div id={panelId} className="project-description__body">
+        {paragraphs.map((paragraph, i) => (
+          <p
+            key={i}
+            className={
+              canExpand && !expanded
+                ? i === 0
+                  ? 'project-description__lead'
+                  : 'project-description__extra'
+                : undefined
+            }
+          >
+            {paragraph}
+          </p>
+        ))}
+      </div>
+
+      {canExpand && (
+        <button
+          type="button"
+          className={`project-description__toggle${expanded ? ' is-expanded' : ''}`}
+          onClick={() => setExpanded((value) => !value)}
+          onPointerDown={(event) => event.stopPropagation()}
+          aria-expanded={expanded}
+          aria-controls={panelId}
+        >
+          {expanded ? 'Show less' : 'Read more'}
+          <Icon name="chevronDown" size={16} />
+        </button>
+      )}
     </div>
   )
 }
@@ -209,7 +349,7 @@ export default function Projects() {
                   inert={i !== index ? true : undefined}
                 >
                   <div className="projects-slider__media">
-                    <ProjectMedia project={project} index={i} />
+                    <ProjectGallery project={project} active={i === index} />
                   </div>
                   <div className="projects-slider__body">
                     <p className="project__kind">{project.kind}</p>

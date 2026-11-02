@@ -45,6 +45,9 @@ const paths = {
   arrowUpRight: <path d="M7 17L17 7M8 7h9v9" />,
   chevronLeft: <path d="M15 5l-7 7 7 7" />,
   chevronRight: <path d="M9 5l7 7-7 7" />,
+  chevronDown: <path d="M5 9l7 7 7-7" />,
+  play: <path d="M8 5l11 7-11 7V5z" />,
+  pause: <path d="M9 5v14M15 5v14" />,
   download: <path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16" />,
   send: <path d="M21 3L10 14M21 3l-7 18-4-7-7-4 18-7z" />,
   // soft skills

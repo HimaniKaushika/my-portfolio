@@ -146,12 +146,31 @@ export const projects = [
   {
     title: 'GuardianSense',
     featured: true,
-    // Put a screenshot in public/projects/ and set this to e.g. '/projects/guardiansense.png'
-    image: '',
-    imageAlt: 'GuardianSense parent app dashboard showing live location and geofence alerts',
-    kind: 'Mobile + IoT + AI',
-    summary:
-      'A child safety monitoring system that pairs a wearable wristband with a parent app, live GPS tracking and smart geofence alerts.',
+    // Screenshots live in public/projects/<project>/ and are served from the site root.
+    images: [
+      {
+        src: '/projects/guardiansense/pic1.png',
+        alt: 'GuardianSense parent app dashboard showing live location and geofence alerts',
+      },
+      {
+        src: '/projects/guardiansense/pic2.png',
+        alt: 'GuardianSense parent app dashboard showing live location and geofence alerts',
+      },
+      {
+        src: '/projects/guardiansense/pic3.png',
+        alt: 'GuardianSense parent app dashboard showing live location and geofence alerts',
+      },
+      {
+        src: '/projects/guardiansense/pic4.png',
+        alt: 'GuardianSense parent app dashboard showing live location and geofence alerts',
+      },
+    ],
+    kind: 'IoT + Mobile Application + AI',
+    description: [
+      'GuardianSense is an end-to-end child safety platform that turns a simple wristband into a parent’s peace of mind. An ESP32-based wearable continuously streams GPS position and environmental sensor data to the cloud, while a Flutter app gives guardians live tracking, custom geofenced safe zones, instant SOS alerts and shared access for trusted caregivers through a CareRing system.',
+      'What makes it more than a tracker is the intelligence layer. A Python AI service studies a month of movement history with DBSCAN clustering to automatically discover the places a child actually frequents, then suggests them as safe zones for the parent to approve. A second model, a Random Forest trained on behavioural features such as time spent outside safe zones, distance from home and night-time activity, produces a weekly safety score with plain-language reasoning, and it learns from each guardian’s feedback over time.',
+      'The system spans five layers: embedded firmware, a Node.js API with real-time sockets, Firebase for storage and auth, the Flutter mobile client, and a Next.js admin console, all designed so that the AI advises and the parent always decides.',
+    ],
     highlights: [
       'ESP32 wristband streams location to the cloud in real time',
       'Parents get instant alerts when a child leaves a safe zone',
@@ -162,9 +181,8 @@ export const projects = [
   },
   {
     title: 'AgroConnect',
-    // Put a screenshot in public/projects/ and set this to e.g. '/projects/agroconnect.png'
-    image: '',
-    imageAlt: 'AgroConnect platform showing live market prices and produce listings',
+    // Add screenshots to public/projects/agroconnect/ and list them here.
+    images: [],
     kind: 'Web platform',
     summary:
       'Connects farmers directly with buyers, with live market prices, simple inventory management and data-driven pricing insights.',
@@ -173,9 +191,8 @@ export const projects = [
   },
   {
     title: 'Smart Home Hub',
-    // Put a screenshot in public/projects/ and set this to e.g. '/projects/smart-home-hub.png'
-    image: '',
-    imageAlt: 'Smart Home Hub dashboard showing live sensor readings and energy usage',
+    // Add screenshots to public/projects/smart-home-hub/ and list them here.
+    images: [],
     kind: 'IoT dashboard',
     summary:
       'A home automation dashboard with live sensor readings, energy usage analytics and voice-controlled devices from a mobile app.',

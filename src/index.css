@@ -1242,6 +1242,109 @@ textarea {
   transform: scale(1);
 }
 
+/* Project image gallery (inner auto-slider) */
+.project-gallery {
+  position: absolute;
+  inset: 0;
+}
+
+.project-gallery__layer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity 900ms var(--ease-out);
+}
+
+.project-gallery__layer.is-active {
+  opacity: 1;
+}
+
+/* Blurred copy fills the frame so the full screenshot is never cropped */
+.project-gallery__layer::before {
+  content: '';
+  position: absolute;
+  inset: -8%;
+  background-image: var(--img);
+  background-size: cover;
+  background-position: center;
+  filter: blur(28px) brightness(0.5) saturate(1.2);
+  transform: scale(1.05);
+}
+
+.project-gallery__layer img {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+.project-gallery__pause {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--paper) 40%, transparent);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  color: var(--paper);
+  cursor: pointer;
+  backdrop-filter: blur(8px) saturate(140%);
+  transition: transform 200ms var(--ease-out), background-color 200ms var(--ease-out);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+:root[data-theme='dark'] .project-gallery__pause {
+  border-color: color-mix(in srgb, var(--ink) 40%, transparent);
+  background: color-mix(in srgb, var(--paper) 18%, transparent);
+  color: var(--ink);
+}
+
+.project-gallery__pause:hover {
+  transform: translateY(-1px);
+}
+
+.project-gallery__dots {
+  position: absolute;
+  left: 50%;
+  bottom: 12px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  backdrop-filter: blur(8px) saturate(140%);
+  z-index: 2;
+  pointer-events: auto;
+}
+
+:root[data-theme='dark'] .project-gallery__dots {
+  background: color-mix(in srgb, var(--paper) 16%, transparent);
+}
+
+.project-gallery__dot {
+  width: 7px;
+  height: 7px;
+  border: none;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--paper) 70%, transparent);
+  cursor: pointer;
+  transition: width 260ms var(--ease-out), background-color 260ms var(--ease-out);
+}
+
+.project-gallery__dot.is-active {
+  width: 18px;
+  background: var(--accent);
+}
+
 .projects-slider__media .geomap {
   width: min(420px, 78%);
   transition: transform 700ms var(--ease-out);
@@ -1362,11 +1465,14 @@ textarea {
   .projects-slider__image,
   .projects-slider__media .geomap,
   .projects-slider__title,
-  .projects-slider__dot {
+  .projects-slider__dot,
+  .project-gallery__layer,
+  .project-gallery__dot {
     transition: none;
   }
 
-  .projects-slider__image {
+  .projects-slider__image,
+  .project-gallery__layer {
     transform: none;
   }
 }
