@@ -1387,9 +1387,59 @@ textarea {
   color: var(--accent);
 }
 
-.projects-slider__description {
-  color: var(--ink-2);
+.project-description {
+  display: grid;
+  gap: 0.65rem;
+}
+
+.project-description__body {
   max-width: 70ch;
+}
+
+.project-description__body p {
+  color: var(--ink-2);
+}
+
+.project-description__body p + p {
+  margin-top: 0.75rem;
+}
+
+.project-description__lead {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.project-description__extra {
+  display: none;
+}
+
+.project-description__toggle {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: var(--accent);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-underline-offset: 4px;
+}
+
+.project-description__toggle:hover {
+  text-decoration: underline;
+}
+
+.project-description__toggle svg {
+  transition: transform 250ms var(--ease-out);
+}
+
+.project-description__toggle.is-expanded svg {
+  transform: rotate(180deg);
 }
 
 .projects-slider__controls {

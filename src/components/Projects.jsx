@@ -354,7 +354,7 @@ export default function Projects() {
                   <div className="projects-slider__body">
                     <p className="project__kind">{project.kind}</p>
                     <h3 className="projects-slider__title">{project.title}</h3>
-                    <p className="projects-slider__description">{project.summary}</p>
+                    <ProjectDescription project={project} />
                     <ul className="chips chips--small">
                       {project.tags.map((tag) => (
                         <li key={tag} className="chip">

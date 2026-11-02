@@ -174,9 +174,9 @@ export const projects = [
     highlights: [
       'ESP32 wristband streams location to the cloud in real time',
       'Parents get instant alerts when a child leaves a safe zone',
-      'Machine learning suggests safe zones from movement patterns',
+      'Machine learning suggests safe zones from movement patterns and produces a weekly safety score',
     ],
-    tags: ['Flutter', 'ESP32', 'Firebase', 'Node.js', 'Python', 'ML'],
+    tags: ['Flutter', 'ESP32', 'Node.js', 'Firebase', 'Python', 'ML'],
     link: '',
   },
   {
@@ -184,8 +184,9 @@ export const projects = [
     // Add screenshots to public/projects/agroconnect/ and list them here.
     images: [],
     kind: 'Web platform',
-    summary:
+    description: [
       'Connects farmers directly with buyers, with live market prices, simple inventory management and data-driven pricing insights.',
+    ],
     tags: ['React', 'Node.js', 'Firebase', 'REST API'],
     link: '',
   },
@@ -194,8 +195,9 @@ export const projects = [
     // Add screenshots to public/projects/smart-home-hub/ and list them here.
     images: [],
     kind: 'IoT dashboard',
-    summary:
+    description: [
       'A home automation dashboard with live sensor readings, energy usage analytics and voice-controlled devices from a mobile app.',
+    ],
     tags: ['Flutter', 'ESP32', 'MQTT', 'IoT'],
     link: '',
   },
