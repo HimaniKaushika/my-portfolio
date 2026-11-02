@@ -1,95 +1,34 @@
-# Personal Portfolio — React + Vite + Tailwind CSS
+# Himani Kaushika – Portfolio
 
-A clean, fully responsive portfolio with Light/Dark mode toggle, smooth scroll navigation, and easy-to-update data files.
+Personal portfolio built with **React 19 + Vite**. Sections: Home, About, Education, Skills (technical + soft), Projects and Contact. Includes light/dark theme (remembers the visitor's choice), responsive layout, keyboard-accessible navigation and reduced-motion support.
 
----
-
-## 🚀 Quick Start
+## Run it
 
 ```bash
-# 1. Install dependencies
 npm install
-
-# 2. Start development server
-npm run dev
-
-# 3. Build for production
-npm run build
+npm run dev       # local dev server
+npm run build     # production build in /dist
+npm run preview   # preview the production build
 ```
 
----
+## Edit the content
 
-## 📁 Project Structure
+Everything you see on the page lives in **`src/data/portfolio.js`**: name, bio, education, skills, projects and contact details. You don't need to touch the components to update text.
 
-```
-portfolio/
-├── index.html                  # HTML entry point
-├── vite.config.js              # Vite config
-├── tailwind.config.js          # Tailwind (darkMode: "class")
-├── postcss.config.js
-├── package.json
-└── src/
-    ├── main.jsx                # React entry point
-    ├── App.jsx                 # Root component — assembles all sections
-    ├── index.css               # Global styles + Tailwind directives
-    │
-    ├── context/
-    │   └── ThemeContext.jsx    # Light/Dark theme provider + toggle
-    │
-    ├── hooks/
-    │   └── useActiveSection.js # Highlights active nav link on scroll
-    │
-    ├── data/
-    │   └── portfolioData.js    # ✏️  ALL your content lives here
-    │
-    ├── components/             # Reusable UI pieces
-    │   ├── Navbar.jsx
-    │   ├── Footer.jsx
-    │   ├── SectionHeading.jsx
-    │   └── ScrollToTop.jsx
-    │
-    └── sections/               # Full-page sections
-        ├── Hero.jsx
-        ├── About.jsx
-        ├── Skills.jsx
-        ├── Projects.jsx
-        └── Contact.jsx
-```
+- **Project links:** add a GitHub or demo URL to a project's `link` field and a "View project" button appears on its card.
+- **CV download:** put your PDF in `/public` and set `profile.cv` (e.g. `'/Himani-Kaushika-CV.pdf'`) to show a "Download CV" button.
+- **Photo:** replace `src/assets/profile.jpg` (portrait orientation works best).
 
----
-
-## ✏️ How to Customize
-
-**Everything you need to change is in one file:**
+## Structure
 
 ```
-src/data/portfolioData.js
+src/
+  data/portfolio.js     all content
+  components/           Navbar, Hero, About, Education, Skills, Projects, Contact, Footer, Icons
+  index.css             design tokens (colours, type) + all styles
+  App.jsx               page layout, theme + active-section tracking
 ```
 
-Edit these exported objects:
+## Deploy
 
-| Export | What it controls |
-|---|---|
-| `personal` | Name, role, bio, email, social links, photo path |
-| `education` | Degree, school, year, highlights |
-| `skillGroups` | Skill categories and items |
-| `projects` | Project cards (title, description, tags, links, accent color) |
-| `navLinks` | Navigation items |
-
-### Adding your photo
-Set `photo` in the `personal` object to your image path:
-```js
-photo: "/assets/your-photo.jpg",
-```
-Then place your image in the `public/assets/` folder.
-
-### Wiring up the contact form
-The form currently logs to the console. To send real emails, add [EmailJS](https://www.emailjs.com/) or [Formspree](https://formspree.io/) in `src/sections/Contact.jsx` inside the `handleSubmit` function.
-
----
-
-## 🎨 Theme
-
-- **Light mode** is the default.
-- Users can toggle Dark mode via the **Sun/Moon button** in the navbar. The preference is saved to `localStorage`.
-- Theme is controlled by `src/context/ThemeContext.jsx` using Tailwind's `darkMode: "class"` strategy.
+The `dist/` folder after `npm run build` can be hosted anywhere static: Vercel, Netlify or GitHub Pages.
