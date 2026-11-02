@@ -31,7 +31,7 @@ export default function About() {
             <div className="about__open">
               <span className="status-chip__dot" aria-hidden="true" />
               <p>
-                <strong>Open to:</strong> {profile.openTo}
+                <strong>Seeking:</strong> {profile.openTo}
               </p>
             </div>
           </aside>

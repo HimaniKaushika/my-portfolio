@@ -15,7 +15,7 @@ export const profile = {
   // Optional: put your CV in /public and set this to '/Himani-Kaushika-CV.pdf'
   cv: '',
   currentlyBuilding: 'GuardianSense',
-  openTo: 'Internships and junior roles in mobile, IoT or AI',
+  openTo: 'Opportunities to Grow, Learn and Contribute in the Technology Industry',
 }
 
 export const about = {
@@ -101,8 +101,8 @@ export const education = [
 
 export const technicalSkills = [
   { group: 'Mobile', items: ['Flutter', 'Dart', 'Android', 'Responsive UI'] },
-  { group: 'Web', items: ['React', 'JavaScript', 'HTML & CSS', 'REST APIs', 'GraphQL'] },
-  { group: 'Back end & cloud', items: ['Firebase', 'Node.js', 'MongoDB', 'SQL'] },
+  { group: 'Web', items: ['HTML & CSS','PHP', 'JavaScript','React', 'REST APIs'] },
+  { group: 'Back end & Database', items: ['SQL', 'MySQL', 'Firebase', 'Node.js', 'MongoDB'] },
   { group: 'IoT & hardware', items: ['ESP32', 'Arduino', 'Raspberry Pi', 'MQTT', 'GPS modules'] },
   { group: 'AI & data', items: ['Python', 'Machine learning', 'TensorFlow'] },
   { group: 'Tools', items: ['Git & GitHub', 'Figma', 'VS Code', 'Android Studio'] },
