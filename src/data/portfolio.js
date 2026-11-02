@@ -146,6 +146,9 @@ export const projects = [
   {
     title: 'GuardianSense',
     featured: true,
+    // Put a screenshot in public/projects/ and set this to e.g. '/projects/guardiansense.png'
+    image: '',
+    imageAlt: 'GuardianSense parent app dashboard showing live location and geofence alerts',
     kind: 'Mobile + IoT + AI',
     summary:
       'A child safety monitoring system that pairs a wearable wristband with a parent app, live GPS tracking and smart geofence alerts.',
@@ -159,6 +162,9 @@ export const projects = [
   },
   {
     title: 'AgroConnect',
+    // Put a screenshot in public/projects/ and set this to e.g. '/projects/agroconnect.png'
+    image: '',
+    imageAlt: 'AgroConnect platform showing live market prices and produce listings',
     kind: 'Web platform',
     summary:
       'Connects farmers directly with buyers, with live market prices, simple inventory management and data-driven pricing insights.',
@@ -167,6 +173,9 @@ export const projects = [
   },
   {
     title: 'Smart Home Hub',
+    // Put a screenshot in public/projects/ and set this to e.g. '/projects/smart-home-hub.png'
+    image: '',
+    imageAlt: 'Smart Home Hub dashboard showing live sensor readings and energy usage',
     kind: 'IoT dashboard',
     summary:
       'A home automation dashboard with live sensor readings, energy usage analytics and voice-controlled devices from a mobile app.',

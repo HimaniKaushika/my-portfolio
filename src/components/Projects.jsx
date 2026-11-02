@@ -1,3 +1,4 @@
+import { useCallback, useRef, useState } from 'react'
 import { projects, profile } from '../data/portfolio.js'
 import { Icon, GitHubIcon } from './Icons.jsx'
 
@@ -32,8 +33,143 @@ function GeofenceMap() {
   )
 }
 
+function initials(title) {
+  return title
+    .split(/\s+/)
+    .map((word) => word[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase()
+}
+
+function ProjectMedia({ project, index }) {
+  if (project.image) {
+    return (
+      <img
+        className="projects-slider__image"
+        src={project.image}
+        alt={project.imageAlt || project.title}
+        loading={index === 0 ? 'eager' : 'lazy'}
+        decoding="async"
+      />
+    )
+  }
+
+  if (project.title === 'GuardianSense') {
+    return <GeofenceMap />
+  }
+
+  return (
+    <div className="projects-slider__placeholder" aria-hidden="true">
+      <span>{initials(project.title)}</span>
+    </div>
+  )
+}
+
 export default function Projects() {
-  const [featured, ...rest] = projects
+  const count = projects.length
+  const [index, setIndex] = useState(0)
+  const [dragging, setDragging] = useState(false)
+  const [dragX, setDragX] = useState(0)
+  const trackRef = useRef(null)
+  const dragRef = useRef({ pointerId: null, startX: 0, startY: 0, dx: 0, active: false, horizontal: null })
+  const suppressClickRef = useRef(false)
+
+  const goTo = useCallback(
+    (next) => {
+      setIndex(((next % count) + count) % count)
+    },
+    [count]
+  )
+
+  const prev = useCallback(() => goTo(index - 1), [goTo, index])
+  const next = useCallback(() => goTo(index + 1), [goTo, index])
+
+  const onKeyDown = (event) => {
+    if (event.key === 'ArrowLeft') {
+      event.preventDefault()
+      prev()
+    } else if (event.key === 'ArrowRight') {
+      event.preventDefault()
+      next()
+    }
+  }
+
+  const onPointerDown = (event) => {
+    if (event.pointerType === 'mouse' && event.button !== 0) return
+    dragRef.current = {
+      pointerId: event.pointerId,
+      startX: event.clientX,
+      startY: event.clientY,
+      dx: 0,
+      active: true,
+      horizontal: null,
+    }
+    suppressClickRef.current = false
+    setDragging(true)
+    setDragX(0)
+    event.currentTarget.setPointerCapture?.(event.pointerId)
+  }
+
+  const onPointerMove = (event) => {
+    const drag = dragRef.current
+    if (!drag.active || event.pointerId !== drag.pointerId) return
+
+    const dx = event.clientX - drag.startX
+    const dy = event.clientY - drag.startY
+
+    if (drag.horizontal === null) {
+      if (Math.abs(dx) < 6 && Math.abs(dy) < 6) return
+      drag.horizontal = Math.abs(dx) > Math.abs(dy)
+    }
+    if (!drag.horizontal) return
+
+    if (event.cancelable) event.preventDefault()
+    drag.dx = dx
+    if (Math.abs(dx) > 6) suppressClickRef.current = true
+    setDragX(dx)
+  }
+
+  const endDrag = (event) => {
+    const drag = dragRef.current
+    if (!drag.active) return
+    if (event && drag.pointerId !== null && event.pointerId !== drag.pointerId) return
+
+    const width = trackRef.current?.clientWidth || 1
+    const threshold = Math.min(80, width * 0.15)
+
+    if (drag.horizontal && Math.abs(drag.dx) > threshold) {
+      goTo(index + (drag.dx < 0 ? 1 : -1))
+    }
+
+    drag.active = false
+    drag.horizontal = null
+    drag.dx = 0
+    setDragging(false)
+    setDragX(0)
+
+    try {
+      event?.currentTarget?.releasePointerCapture?.(drag.pointerId)
+    } catch {
+      /* pointer already released */
+    }
+
+    window.setTimeout(() => {
+      suppressClickRef.current = false
+    }, 0)
+  }
+
+  const onClickCapture = (event) => {
+    if (suppressClickRef.current) {
+      event.preventDefault()
+      event.stopPropagation()
+      suppressClickRef.current = false
+    }
+  }
+
+  const trackStyle = dragging
+    ? { transform: `translateX(calc(${-index * 100}% + ${dragX}px))`, transition: 'none' }
+    : { transform: `translateX(${-index * 100}%)` }
 
   return (
     <section id="projects" className="section section--tint">
@@ -43,54 +179,92 @@ export default function Projects() {
           A few things I've designed and built, from wearable hardware to web platforms.
         </p>
 
-        <article className="project project--featured" data-reveal data-tilt>
-          <div className="project__media">
-            <GeofenceMap />
-          </div>
-          <div className="project__body">
-            <p className="project__kind">{featured.kind}</p>
-            <h3 className="project__title">{featured.title}</h3>
-            <p>{featured.summary}</p>
-            <ul className="project__highlights">
-              {featured.highlights.map((h) => (
-                <li key={h}>{h}</li>
-              ))}
-            </ul>
-            <ul className="chips chips--small">
-              {featured.tags.map((t) => (
-                <li key={t} className="chip">
-                  {t}
-                </li>
-              ))}
-            </ul>
-            <ProjectLink link={featured.link} />
-          </div>
-        </article>
-
-        <div className="project-grid">
-          {rest.map((p, i) => (
-            <article
-              key={p.title}
-              className="project"
-              data-reveal
-              data-tilt
-              style={{ '--reveal-delay': `${i * 90}ms` }}
+        <div
+          className="projects-slider"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label="My projects"
+          tabIndex={0}
+          onKeyDown={onKeyDown}
+          data-reveal
+          style={{ '--reveal-delay': '160ms' }}
+        >
+          <div className="projects-slider__viewport">
+            <div
+              ref={trackRef}
+              className={`projects-slider__track${dragging ? ' is-dragging' : ''}`}
+              style={trackStyle}
+              onPointerDown={onPointerDown}
+              onPointerMove={onPointerMove}
+              onPointerUp={endDrag}
+              onPointerCancel={endDrag}
+              onClickCapture={onClickCapture}
             >
-              <div className="project__body">
-                <p className="project__kind">{p.kind}</p>
-                <h3 className="project__title">{p.title}</h3>
-                <p>{p.summary}</p>
-                <ul className="chips chips--small">
-                  {p.tags.map((t) => (
-                    <li key={t} className="chip">
-                      {t}
-                    </li>
-                  ))}
-                </ul>
-                <ProjectLink link={p.link} />
-              </div>
-            </article>
-          ))}
+              {projects.map((project, i) => (
+                <article
+                  key={project.title}
+                  className={`projects-slider__slide${i === index ? ' is-active' : ''}`}
+                  aria-roledescription="slide"
+                  aria-label={`${i + 1} of ${count}: ${project.title}`}
+                  inert={i !== index ? true : undefined}
+                >
+                  <div className="projects-slider__media">
+                    <ProjectMedia project={project} index={i} />
+                  </div>
+                  <div className="projects-slider__body">
+                    <p className="project__kind">{project.kind}</p>
+                    <h3 className="projects-slider__title">{project.title}</h3>
+                    <p className="projects-slider__description">{project.summary}</p>
+                    <ul className="chips chips--small">
+                      {project.tags.map((tag) => (
+                        <li key={tag} className="chip">
+                          {tag}
+                        </li>
+                      ))}
+                    </ul>
+                    <ProjectLink link={project.link} />
+                  </div>
+                </article>
+              ))}
+            </div>
+          </div>
+
+          <div className="projects-slider__controls">
+            <button
+              type="button"
+              className="projects-slider__btn"
+              onClick={prev}
+              aria-label="Previous project"
+            >
+              <Icon name="chevronLeft" size={20} />
+            </button>
+
+            <div className="projects-slider__dots">
+              {projects.map((project, i) => (
+                <button
+                  key={project.title}
+                  type="button"
+                  className={`projects-slider__dot${i === index ? ' is-active' : ''}`}
+                  onClick={() => goTo(i)}
+                  aria-label={`Go to project ${i + 1}: ${project.title}`}
+                  aria-current={i === index ? 'true' : undefined}
+                />
+              ))}
+            </div>
+
+            <button
+              type="button"
+              className="projects-slider__btn"
+              onClick={next}
+              aria-label="Next project"
+            >
+              <Icon name="chevronRight" size={20} />
+            </button>
+          </div>
+
+          <p className="sr-only" aria-live="polite">
+            {projects[index].title}, project {index + 1} of {count}
+          </p>
         </div>
 
         <p className="projects__more" data-reveal>
