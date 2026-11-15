@@ -10,10 +10,10 @@ export const profile = {
   email: 'h.kaushi49@gmail.com',
   // TODO: replace with your real number
   phone: '+94 752048302',
-  github: 'https://github.com/himanikaushika',
-  linkedin: 'https://linkedin.com/in/himanikaushika',
-  // Optional: put your CV in /public and set this to '/Himani-Kaushika-CV.pdf'
-  cv: '',
+  github: 'https://github.com/HimaniKaushika',
+  linkedin: 'https://www.linkedin.com/in/himani-kaushika-b62165370/',
+  // CV lives in /public and is served from the site root.
+  cv: '/Himani-Kaushika-CV.pdf',
   currentlyBuilding: 'GuardianSense',
   openTo: 'Opportunities to Grow, Learn and Contribute in the Technology Industry',
 }
@@ -231,6 +231,17 @@ export const projects = [
       'Tile Twist is an interactive mobile puzzle game designed and developed to challenge players problem-solving skills through engaging tile-based puzzles. The application features an intuitive dashboard, interactive gameplay, interactive leaderboard with real-time updates and avatar display, and dedicated success and failure screens to provide feedback based on players performance. It offers an engaging gaming experience while encouraging logical thinking, concentration, and strategic decision-making.'
     ],
     tags: ['HTML', 'PHP', 'JavaScript', 'Tailwind CSS', 'MySQL', 'Heart Game API'],
+    link: '',
+  },
+  {
+    title: 'SweetDelights – Online Bakery & Cake Ordering Website.',
+
+    images: [],
+    kind: 'A web-based e-commerce platform for bakery and cake ordering',
+    description: [
+      'SweetDelights is an online bakery and cake ordering website developed to provide customers with a convenient way to explore and order bakery products online. The website allows users to browse a variety of cakes, sweets, and other bakery items through an attractive and user-friendly interface. It aims to simplify the ordering process by allowing customers to view available products and place orders without visiting the bakery physically. The system also includes functionality for managing bakery products and customer orders, helping the bakery maintain its online operations efficiently. The website was developed as a university coursework project, focusing on front-end design, server-side functionality, and database management to provide a complete online bakery ordering experience.'
+    ],
+    tags: ['HTML', 'PHP', 'JavaScript', 'MySQL'],
     link: '',
   },
 ]

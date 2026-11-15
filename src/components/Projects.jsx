@@ -11,37 +11,6 @@ function ProjectLink({ link }) {
   )
 }
 
-// A small illustrative map for GuardianSense: a child marker inside a geofence
-function GeofenceMap() {
-  return (
-    <svg className="geomap" viewBox="0 0 320 220" role="img" aria-label="Illustration of a geofenced safe zone with a tracked location">
-      <defs>
-        <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-          <path d="M20 0H0V20" fill="none" stroke="currentColor" strokeOpacity=".08" />
-        </pattern>
-      </defs>
-      <rect width="320" height="220" fill="url(#grid)" />
-      <path d="M0 150 C60 130 90 170 150 150 S250 110 320 130" fill="none" stroke="currentColor" strokeOpacity=".18" strokeWidth="10" strokeLinecap="round" />
-      <path d="M90 0 C100 60 80 120 110 220" fill="none" stroke="currentColor" strokeOpacity=".12" strokeWidth="7" />
-      <circle className="geomap__zone" cx="168" cy="104" r="70" />
-      <circle className="geomap__zone geomap__zone--inner" cx="168" cy="104" r="40" />
-      <rect x="140" y="80" width="28" height="22" rx="3" fill="currentColor" fillOpacity=".14" />
-      <rect x="176" y="118" width="24" height="18" rx="3" fill="currentColor" fillOpacity=".14" />
-      <circle className="geomap__ping" cx="186" cy="92" r="9" />
-      <circle className="geomap__dot" cx="186" cy="92" r="6" />
-    </svg>
-  )
-}
-
-function initials(title) {
-  return title
-    .split(/\s+/)
-    .map((word) => word[0])
-    .join('')
-    .slice(0, 3)
-    .toUpperCase()
-}
-
 const GALLERY_INTERVAL = 2000
 const AUTO_SLIDE_INTERVAL = 4000
 
@@ -94,14 +63,7 @@ function ProjectGallery({ project, active }) {
     return () => window.clearInterval(id)
   }, [active, isPlaying, reducedMotion, count, index])
 
-  if (count === 0) {
-    if (project.title === 'GuardianSense') return <GeofenceMap />
-    return (
-      <div className="projects-slider__placeholder" aria-hidden="true">
-        <span>{initials(project.title)}</span>
-      </div>
-    )
-  }
+  if (count === 0) return null
 
   return (
     <div
@@ -395,7 +357,9 @@ export default function Projects() {
               onPointerCancel={endDrag}
               onClickCapture={onClickCapture}
             >
-              {projects.map((project, i) => (
+              {projects.map((project, i) => {
+                const hasImages = normalizeImages(project).length > 0
+                return (
                 <article
                   key={project.title}
                   className={`projects-slider__slide${i === index ? ' is-active' : ''}`}
@@ -403,10 +367,12 @@ export default function Projects() {
                   aria-label={`${i + 1} of ${count}: ${project.title}`}
                   inert={i !== index ? true : undefined}
                 >
-                  <div className="projects-slider__card">
-                    <div className="projects-slider__media">
-                      <ProjectGallery project={project} active={i === index} />
-                    </div>
+                  <div className={`projects-slider__card${hasImages ? '' : ' projects-slider__card--text'}`}>
+                    {hasImages && (
+                      <div className="projects-slider__media">
+                        <ProjectGallery project={project} active={i === index} />
+                      </div>
+                    )}
                     <div className="projects-slider__body">
                       <p className="project__kind">{project.kind}</p>
                       <h3 className="projects-slider__title">{project.title}</h3>
@@ -428,7 +394,8 @@ export default function Projects() {
                     </div>
                   </div>
                 </article>
-              ))}
+                )
+              })}
             </div>
           </div>
 

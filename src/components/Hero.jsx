@@ -57,7 +57,7 @@ export default function Hero() {
               Contact me
             </a>
             {profile.cv && (
-              <a href={profile.cv} className="btn btn--ghost" download>
+              <a href={profile.cv} className="btn btn--ghost" download="Himani-Kaushika-CV.pdf">
                 <Icon name="download" size={18} /> Download CV
               </a>
             )}

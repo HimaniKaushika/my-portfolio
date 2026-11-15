@@ -32,7 +32,7 @@ export default function Contact() {
         <div data-reveal>
           <h2 className="section__title contact__title">Let's build something together</h2>
           <p className="contact__lead">
-            I'm looking for internships and project collaborations in mobile, IoT and AI. If you
+            I'm looking for internships and project collaborations in mobile, web development and AI. If you
             have an opportunity or just want to talk tech, my inbox is open.
           </p>
 

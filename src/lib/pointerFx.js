@@ -8,40 +8,6 @@ function hasFinePointer() {
   return window.matchMedia?.('(pointer: fine)').matches
 }
 
-function addMagnetic(el) {
-  let frame = 0
-
-  const reset = () => {
-    cancelAnimationFrame(frame)
-    frame = requestAnimationFrame(() => {
-      el.style.setProperty('--mag-x', '0px')
-      el.style.setProperty('--mag-y', '0px')
-    })
-  }
-
-  const onMove = (event) => {
-    const rect = el.getBoundingClientRect()
-    const x = event.clientX - (rect.left + rect.width / 2)
-    const y = event.clientY - (rect.top + rect.height / 2)
-    cancelAnimationFrame(frame)
-    frame = requestAnimationFrame(() => {
-      el.style.setProperty('--mag-x', `${clamp(x * 0.18, -6, 6).toFixed(2)}px`)
-      el.style.setProperty('--mag-y', `${clamp(y * 0.2, -4, 4).toFixed(2)}px`)
-    })
-  }
-
-  el.addEventListener('pointermove', onMove)
-  el.addEventListener('pointerleave', reset)
-
-  return () => {
-    cancelAnimationFrame(frame)
-    el.removeEventListener('pointermove', onMove)
-    el.removeEventListener('pointerleave', reset)
-    el.style.removeProperty('--mag-x')
-    el.style.removeProperty('--mag-y')
-  }
-}
-
 function addTilt(el) {
   let frame = 0
 
@@ -118,7 +84,6 @@ function addHeroGlow(el) {
 
 function initDesktopFx() {
   const cleanups = [
-    ...Array.from(document.querySelectorAll('.btn'), addMagnetic),
     ...Array.from(document.querySelectorAll('[data-tilt]'), addTilt),
     ...Array.from(document.querySelectorAll('.hero'), addHeroGlow),
   ]
